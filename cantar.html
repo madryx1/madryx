@@ -13,7 +13,7 @@
             height: 100vh;
             margin: 0;
             background-color: transparent;
-            overflow: hidden; /* Ascunde orice overflow */
+            overflow: hidden;
         }
         #player-container {
             display: flex;
@@ -21,24 +21,24 @@
         }
         #player-count {
             color: #de802f;
-            font-family: 'Montserrat', sans-serif; /* Folosește fontul Montserrat */
+            font-family: 'Montserrat', sans-serif;
             font-size: 56px;
             font-weight: bold;
             letter-spacing: 2px;
             margin-left: 10px;
             display: flex;
             align-items: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Umbra aplicată pe tot numărul */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         #player-text {
             margin-right: 10px;
         }
         .digit {
             position: relative;
-            width: 40px; /* Lățimea fiecărei cifre */
+            width: 40px;
             height: 60px;
             overflow: hidden;
-            margin-right: 5px; /* Distanțare între cifre */
+            margin-right: 5px;
         }
         .digit span {
             position: absolute;
@@ -46,13 +46,13 @@
             left: 0;
             width: 100%;
             text-align: center;
-            transition: transform 1.2s ease-in-out; /* Durata animației setată la 1.2 secunde */
-            color: #de802f; /* Culoarea cifrelor */
+            transition: transform 1.2s ease-in-out;
+            color: #de802f;
         }
         #player-icon {
             width: 50px;
             height: 50px;
-            filter: brightness(0) saturate(100%) invert(41%) sepia(70%) saturate(593%) hue-rotate(337deg) brightness(99%) contrast(101%) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)); /* Umbra aplicată imaginii */
+            filter: brightness(0) saturate(100%) invert(41%) sepia(70%) saturate(593%) hue-rotate(337deg) brightness(99%) contrast(101%) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
             background-color: transparent;
         }
     </style>
@@ -73,7 +73,7 @@
             try {
                 const response = await fetch('https://api.hpq.ro/samp?ip=rpg.crowland.ro');
                 const data = await response.json();
-                const playerCount = data.players.toString().padStart(3, '0');  // Convertim numărul la șir cu 3 cifre
+                const playerCount = data.players.toString().padStart(3, '0');
 
                 animateDigit('digit-hundreds', playerCount[0]);
                 animateDigit('digit-tens', playerCount[1]);
@@ -94,23 +94,18 @@
                 newSpan.style.transform = 'translateY(-100%)';
                 digitElement.appendChild(newSpan);
 
-                // Animația de tranziție
                 setTimeout(() => {
                     currentSpan.style.transform = 'translateY(100%)';
                     newSpan.style.transform = 'translateY(0)';
                 }, 50);
 
-                // După animație, eliminăm elementul vechi
                 setTimeout(() => {
                     currentSpan.remove();
-                }, 1200); // Timpul de eliminare se potrivește cu durata animației
+                }, 1200);
             }
         }
 
-        // Apelează funcția la încărcarea paginii
         fetchPlayerCount();
-
-        // Actualizează la fiecare 2 secunde
         setInterval(fetchPlayerCount, 2000);
     </script>
 </body>
