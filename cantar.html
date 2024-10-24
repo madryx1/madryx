@@ -46,7 +46,7 @@
             left: 0;
             width: 100%;
             text-align: center;
-            transition: transform 1.2s ease-in-out;
+            transition: transform 1s ease-in-out;
             color: #de802f;
         }
         #player-icon {
@@ -67,46 +67,38 @@
             <div class="digit" id="digit-ones"><span>0</span></div>
         </div>
     </div>
-
     <script>
         async function fetchPlayerCount() {
             try {
                 const response = await fetch('https://api.hpq.ro/samp?ip=rpg.crowland.ro');
                 const data = await response.json();
                 const playerCount = data.players.toString().padStart(3, '0');
-
-                animateDigit('digit-hundreds', playerCount[0]);
-                animateDigit('digit-tens', playerCount[1]);
-                animateDigit('digit-ones', playerCount[2]);
+                updateDigit('digit-hundreds', playerCount[0]);
+                updateDigit('digit-tens', playerCount[1]);
+                updateDigit('digit-ones', playerCount[2]);
             } catch (error) {
                 console.error('Error:', error);
             }
         }
 
-        function animateDigit(digitId, newValue) {
+        function updateDigit(digitId, newValue) {
             const digitElement = document.getElementById(digitId);
             const currentSpan = digitElement.querySelector('span');
-            const currentValue = currentSpan.textContent;
-
-            if (currentValue !== newValue) {
+            if (currentSpan.textContent !== newValue) {
                 const newSpan = document.createElement('span');
                 newSpan.textContent = newValue;
                 newSpan.style.transform = 'translateY(-100%)';
                 digitElement.appendChild(newSpan);
-
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     currentSpan.style.transform = 'translateY(100%)';
                     newSpan.style.transform = 'translateY(0)';
-                }, 50);
-
+                });
                 setTimeout(() => {
                     currentSpan.remove();
-                }, 1200);
+                }, 1000);
             }
         }
 
         fetchPlayerCount();
         setInterval(fetchPlayerCount, 2000);
     </script>
-</body>
-</html>
