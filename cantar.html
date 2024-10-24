@@ -14,6 +14,7 @@
             margin: 0;
             background-color: transparent;
             overflow: hidden;
+            flex-direction: column; /* Adăugat pentru a permite plasarea textului jos */
         }
         #player-container {
             display: flex;
@@ -55,6 +56,13 @@
             filter: brightness(0) saturate(100%) invert(41%) sepia(70%) saturate(593%) hue-rotate(337deg) brightness(99%) contrast(101%) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
             background-color: transparent;
         }
+        #footer-text {
+            margin-top: 20px;
+            font-family: 'Montserrat', sans-serif;
+            color: #de802f;
+            font-size: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -67,6 +75,7 @@
             <div class="digit" id="digit-ones"><span>0</span></div>
         </div>
     </div>
+    <div id="footer-text">phoenix.crowland.ro</div>
     <script>
         async function fetchPlayerCount() {
             try {
@@ -95,10 +104,12 @@
                 });
                 setTimeout(() => {
                     currentSpan.remove();
-                }, 1000);
+                }, 1000); // Trebuie să se potrivească cu durata de tranziție din CSS
             }
         }
 
         fetchPlayerCount();
         setInterval(fetchPlayerCount, 2000);
     </script>
+</body>
+</html>
